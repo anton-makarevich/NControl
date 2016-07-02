@@ -36,8 +36,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 using Xamarin.Forms;
+#if WINDOWS_UWP
+using Xamarin.Forms.Platform.UWP;
+#else
 using Xamarin.Forms.Platform.WinRT;
-
+#endif
 namespace NControl.WinRT
 {
     /// <summary>
@@ -254,7 +257,7 @@ namespace NControl.WinRT
             }
         }
                 
-        #region Drawing
+#region Drawing
 
         /// <summary>
         /// Redraws the control by clearing the canvas element and adding new elements
@@ -273,9 +276,9 @@ namespace NControl.WinRT
             Element.Draw(canvas, new NGraphics.Rect(0, 0, Element.Width, Element.Height));
         }
 
-        #endregion
+#endregion
        
-        #region Private Members
+#region Private Members
 
         /// <summary>
         /// Updates clic on the element
@@ -307,6 +310,6 @@ namespace NControl.WinRT
             RedrawControl();
         }
 
-        #endregion
+#endregion
     }
 }
