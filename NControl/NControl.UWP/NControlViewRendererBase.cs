@@ -102,7 +102,7 @@ namespace NControl.WinRT
                 e.NewElement.OnInvalidate += HandleInvalidate;
             }
 
-            if (Control == null)
+            if (Control == null && e.NewElement!=null)
             {
                 var ctrl = new NControlNativeView();
                 Canvas = new Canvas();
@@ -141,7 +141,7 @@ namespace NControl.WinRT
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (Control == null)
+            if (Control == null ||Element==null)
                 return;
 
             if (e.PropertyName == Layout.IsClippedToBoundsProperty.PropertyName)
@@ -261,6 +261,8 @@ namespace NControl.WinRT
         /// </summary>
         private void RedrawControl()
         {
+            if (Element == null)
+                return;
             if (Element.Width.Equals(-1) || Element.Height.Equals(-1))
                 return;
 
@@ -282,6 +284,8 @@ namespace NControl.WinRT
         /// </summary>
         private void UpdateClip()
         {
+            if (Element == null)
+                return;
             if (Element.Width.Equals(-1) || Element.Height.Equals(-1))
                 return;
 
