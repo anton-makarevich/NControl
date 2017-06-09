@@ -72,6 +72,11 @@ namespace NControl.WinRT
         protected abstract NGraphics.IPlatform CreatePlatform();
 
         /// <summary>
+        /// True when control is under disposition.
+        /// </summary>
+        private bool isDisposing;
+
+        /// <summary>
         /// Used for registration with dependency service
         /// </summary>
         public static void Init()
@@ -89,6 +94,12 @@ namespace NControl.WinRT
             PointerReleased += OnPointerReleased;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            isDisposing = true;
+            base.Dispose(disposing);
+        }
+
         /// <summary>
         /// Raises the element changed event.
         /// </summary>
@@ -104,6 +115,9 @@ namespace NControl.WinRT
             {
                 e.NewElement.OnInvalidate += HandleInvalidate;
             }
+
+            if (isDisposing)
+                return;
 
             if (Control == null)
             {
